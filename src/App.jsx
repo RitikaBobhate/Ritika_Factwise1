@@ -6,6 +6,7 @@ export default function App(){
     const[board, setBoard] = useState(Array(9).fill(null))
     const[isTurnX, setIsTurnX] = useState(true);
     const winner = calculateWinner(board);
+    const isTie = board.every(cell => cell !== null) && !winner;
     const handleClick = (index) => {
         if(board[index] || winner) return;
         const newBoard = [...board];
@@ -21,7 +22,10 @@ export default function App(){
         <div className="app">
             <h1>Tic Tac Toe</h1>
             <div className="status">
-                {winner ? `Winner: ${winner}` : `Next player: ${isTurnX ? 'X' : 'O'}`}
+                {winner ? `Winner: ${winner}` :
+                    isTie
+                ? "It's a Tie!"
+                : `Next player: ${isTurnX ? 'X' : 'O'}`}
             </div>
             <div className="board">
                 {board.map((cell, index) => (
